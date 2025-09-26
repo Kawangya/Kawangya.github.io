@@ -1,4 +1,4 @@
-#卡王的个人导航
+# 卡王的个人导航
 
 <details>
 <summary><strong>📱 官方账号直通</strong></summary>
@@ -123,8 +123,8 @@
 </details>
 
 ---
-##🎮 我的世界资源库
-###📥 启动器下载
+## 🎮 我的世界资源库
+### 📥 启动器下载
 
 <details>
 <summary>电脑Java版启动器</summary>
@@ -162,7 +162,7 @@
 |klplt国际版下载|<http://mcapks.net>|
 </details>
 
-###🌐 资源导航
+### 🌐 资源导航
 
 <details>
 <summary>综合导航网</summary>
@@ -208,7 +208,7 @@
 |Essential联机mod|<https://essential.gg/>|
 </details>
 
-###🛠️ 创作工具
+### 🛠️ 创作工具
 
 <details>
 <summary>皮肤编辑工具</summary>
@@ -266,7 +266,7 @@
 
 ---
 
-##🎲 其他游戏相关
+## 🎲 其他游戏相关
 
 <details>
 <summary>常用游戏平台官网</summary>
