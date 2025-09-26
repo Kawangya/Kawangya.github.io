@@ -123,7 +123,6 @@
 </details>
 
 ---
-***
 ##🎮 我的世界资源库
 ###📥 启动器下载
 
@@ -321,6 +320,3 @@
 </details>
 
 ---
-***
-
-######🔗 友情链接：[简函笔记](http://jianhancloud.cn/) | [游戏人生](http://jianhancloud.cn/yueya/yxrs.html) | [随图APP](https://xiyatu.lanzouq.com/b00hqrcxob)
