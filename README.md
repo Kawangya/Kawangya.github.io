@@ -30,7 +30,6 @@
 
 **📝 投稿格式**：
 ```
-
 皮肤名称：
 皮肤价格：（免费或绿宝石）
 皮肤风格：（原版,科幻,神话,其他）
@@ -38,14 +37,13 @@
 皮肤简介：（可选项）
 皮肤文件：（皮肤请放网盘发链接过来(建议百度网盘或123云盘)）
 皮肤封面：（可选项）
-
 ```
 
 <details>
 <summary>📲 扫码添加QQ</summary>
 
 [👉 点击快速添加](https://qm.qq.com/q/rqS3pr5QkM)  
-![联系方式](lxfs.webp)
+![联系方式](qqhy.png)
 </details>
 </details>
 <details>
@@ -64,7 +62,7 @@
 <summary>📲 扫码添加QQ</summary>
 
 [👉 点击快速添加](https://qm.qq.com/q/rqS3pr5QkM)  
-![联系方式](lxfs.webp)
+![联系方式](qqhy.png)
 </details>
 </details>
 <details>
