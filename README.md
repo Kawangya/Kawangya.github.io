@@ -104,7 +104,7 @@
 |网址名称|网址链接|
 |---------|---------|
 |网页转应用|<https://wwkp.lanzouv.com/s/wyzyy>|
-|WebIDE/MT浏览器|<https://bzyapp.top/>|
+|MT浏览器|<https://kawang.lanzoul.com/iu1Cx25zufdg>|
 </details>
 </details>
 <details>
