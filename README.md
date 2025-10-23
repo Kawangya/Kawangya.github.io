@@ -213,7 +213,7 @@
 
 |网址名称|网址链接|适用设备|
 |---------|---------|---------|
-|Skinseed汉化版|<https://kawang.lanzoul.com/iFLS229arkfe><br /><https://kawang.lanzoul.com/i21a929arl4j>|手机|
+|Skinseed汉化版|<https://kawang.lanzoul.com/b0xwto5hg>密码：kawang|手机|
 |Mcskin3d汉化版|<https://kawang.lanzoul.com/iwwoK15ty1pg>|电脑|
 |MCSkinn(新Mcskin3d)|<https://www.inkore.net/products/mcskinn>|电脑|
 |Blockbench|<https://www.blockbench.net/>|电脑|
