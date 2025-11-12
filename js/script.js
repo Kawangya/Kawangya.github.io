@@ -82,7 +82,7 @@ document.querySelectorAll('img').forEach(img => {
         overlay.style.cssText = `
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7); // 降低阴影深度
+            background: rgba(0,0,0,0.7);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -90,26 +90,29 @@ document.querySelectorAll('img').forEach(img => {
             z-index: 9999;
         `;
         
-        // 创建图片容器，确保完美居中
+        // 创建图片容器，确保完美水平居中
         const imgContainer = document.createElement('div');
         imgContainer.style.cssText = `
             display: flex;
             align-items: center;
             justify-content: center;
+            width: auto;
+            height: auto;
             max-width: 95vw;
             max-height: 95vh;
-            padding: 20px;
-            box-sizing: border-box;
+            margin: 0 auto; /* 确保水平居中 */
         `;
         
         // 克隆并放大图片
         const clonedImg = img.cloneNode();
         clonedImg.style.cssText = `
+            display: block;
             max-width: 100%;
             max-height: 100%;
+            width: auto;
+            height: auto;
             object-fit: contain;
-            border-radius: 4px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3); // 添加轻微阴影增强层次感
+            margin: 0 auto; /* 图片本身也水平居中 */
         `;
         
         imgContainer.appendChild(clonedImg);
