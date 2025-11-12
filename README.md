@@ -71,7 +71,7 @@
 <details>
 <summary>🎓 小知识大杂烩</summary>
 
-[有趣的翻译工具](https://mp.weixin.qq.com/s/fXPEWOPiUw_QUg8_We6URA) | [浏览器搜索语法](http://jianhan.vip/yueya/浏览器搜索语法.html)
+[有趣的翻译工具](https://mp.weixin.qq.com/s/fXPEWOPiUw_QUg8_We6URA) | [浏览器搜索语法](pages/llqssyf.html)
  | [蓝奏云apk文件下载教学](https://mp.weixin.qq.com/s/KyisjncKDKrzFEzM6Fd4kA)
 </details>
 <details>
