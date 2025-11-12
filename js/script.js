@@ -75,64 +75,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 为所有图片添加点击放大效果
 document.querySelectorAll('img').forEach(img => {
-    img.style.cursor = 'zoom-in';
+    img.style.cursor = 'zoom-in'; // 鼠标悬停时显示放大图标
     img.onclick = function() {
         // 创建遮罩层
         const overlay = document.createElement('div');
         overlay.style.cssText = `
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.9); // 半透明黑色背景
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: zoom-out;
-            z-index: 9999;
-        `;
-        
-        // 创建图片容器，确保完美水平居中
-        const imgContainer = document.createElement('div');
-        imgContainer.style.cssText = `
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: auto;
-            height: auto;
-            max-width: 95vw;
-            max-height: 95vh;
-            margin: 0 auto; /* 确保水平居中 */
+            cursor: zoom-out; // 点击遮罩层关闭
+            z-index: 9999; // 确保在最上层
         `;
         
         // 克隆并放大图片
         const clonedImg = img.cloneNode();
-        clonedImg.style.cssText = `
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            margin: 0 auto; /* 图片本身也水平居中 */
-        `;
+        clonedImg.style.maxWidth = '90%';
+        clonedImg.style.maxHeight = '90%';
         
-        imgContainer.appendChild(clonedImg);
-        overlay.appendChild(imgContainer);
+        overlay.appendChild(clonedImg);
         document.body.appendChild(overlay);
         
         // 点击遮罩层关闭放大效果
-        overlay.onclick = (e) => {
-            if (e.target === overlay) {
-                overlay.remove();
-            }
-        };
-        
-        // 添加ESC键关闭功能
-        const handleKeydown = (e) => {
-            if (e.key === 'Escape') {
-                overlay.remove();
-                document.removeEventListener('keydown', handleKeydown);
-            }
-        };
-        document.addEventListener('keydown', handleKeydown);
+        overlay.onclick = () => overlay.remove();
     };
 });
