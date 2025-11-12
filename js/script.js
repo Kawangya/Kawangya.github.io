@@ -1,26 +1,35 @@
-// 优化后的代码
 document.addEventListener('DOMContentLoaded', function() {
+    // 配置
+    const CONFIG = {
+        copyAlertDuration: {
+            success: 2000,
+            error: 3000
+        }
+    };
+    
     // 缓存DOM元素
     const copyAlert = document.getElementById('copyAlert');
     
-    // 复制按钮功能
-    const copyButtons = document.querySelectorAll('.copy-btn');
-    if (copyButtons.length > 0) {
+    try {
+        // 复制按钮功能
+        const copyButtons = document.querySelectorAll('.copy-btn');
         copyButtons.forEach(button => {
             button.addEventListener('click', handleCopyClick);
         });
-    }
 
-    // 图片放大功能
-    const images = document.querySelectorAll('img');
-    if (images.length > 0) {
+        // 图片放大功能
+        const images = document.querySelectorAll('img:not(.copy-btn *)');
         images.forEach(img => {
             img.style.cursor = 'zoom-in';
             img.addEventListener('click', handleImageClick);
         });
+    } catch (error) {
+        console.error('功能初始化失败:', error);
     }
 
     function handleCopyClick() {
+        if (this.disabled) return;
+        
         const preElement = this.closest('pre');
         const codeElement = preElement?.querySelector('code');
         
@@ -29,8 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const textToCopy = codeElement.textContent;
-        copyToClipboard(textToCopy);
+        this.disabled = true;
+        const textToCopy = codeElement.textContent || codeElement.innerText;
+        
+        copyToClipboard(textToCopy).finally(() => {
+            setTimeout(() => {
+                this.disabled = false;
+            }, 1000);
+        });
     }
 
     async function copyToClipboard(text) {
@@ -38,63 +53,83 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navigator.clipboard && window.isSecureContext) {
                 await navigator.clipboard.writeText(text);
                 showCopySuccess();
+                return true;
             } else {
-                fallbackCopyText(text);
+                return fallbackCopyText(text);
             }
         } catch (err) {
             console.error('复制失败: ', err);
-            fallbackCopyText(text);
+            return fallbackCopyText(text);
         }
     }
 
     function fallbackCopyText(text) {
-        const textArea = document.createElement("textarea");
-        textArea.value = text;
-        Object.assign(textArea.style, {
-            position: "fixed",
-            opacity: "0",
-            pointerEvents: "none"
-        });
-        
-        document.body.appendChild(textArea);
-        textArea.select();
-        
-        try {
-            const successful = document.execCommand('copy');
-            if (successful) {
-                showCopySuccess();
-            } else {
-                showCopyError('复制失败');
+        return new Promise((resolve) => {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            Object.assign(textArea.style, {
+                position: "fixed",
+                opacity: "0",
+                pointerEvents: "none"
+            });
+            
+            document.body.appendChild(textArea);
+            textArea.select();
+            textArea.setSelectionRange(0, 99999); // 移动端支持
+            
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                if (successful) {
+                    showCopySuccess();
+                    resolve(true);
+                } else {
+                    showCopyError('复制失败');
+                    resolve(false);
+                }
+            } catch (err) {
+                document.body.removeChild(textArea);
+                console.error('复制失败: ', err);
+                showCopyError('复制失败，请手动选择文本复制');
+                resolve(false);
             }
-        } catch (err) {
-            console.error('复制失败: ', err);
-            showCopyError('复制失败，请手动选择文本复制');
-        } finally {
-            document.body.removeChild(textArea);
-        }
+        });
     }
 
     function showCopySuccess() {
-        showAlert("复制成功!", "copy-success", 2000);
+        showAlert("复制成功!", "copy-success", CONFIG.copyAlertDuration.success);
     }
 
     function showCopyError(message = "复制失败，请手动选择文本复制") {
-        showAlert(message, "copy-error", 3000);
+        showAlert(message, "copy-error", CONFIG.copyAlertDuration.error);
     }
 
     function showAlert(message, className, duration) {
-        if (!copyAlert) return;
+        if (!copyAlert) {
+            console.warn('复制提示元素未找到');
+            return;
+        }
+        
+        if (copyAlert._timeoutId) {
+            clearTimeout(copyAlert._timeoutId);
+        }
         
         copyAlert.textContent = message;
         copyAlert.className = `copy-alert ${className}`;
         copyAlert.style.display = 'block';
         
-        setTimeout(() => {
+        copyAlert._timeoutId = setTimeout(() => {
             copyAlert.style.display = 'none';
+            copyAlert._timeoutId = null;
         }, duration);
     }
 
-    function handleImageClick() {
+    function handleImageClick(e) {
+        e.stopPropagation();
+        
+        if (document.querySelector('.image-overlay')) return;
+        
         const overlay = document.createElement('div');
         const clonedImg = this.cloneNode();
         
@@ -104,36 +139,58 @@ document.addEventListener('DOMContentLoaded', function() {
             left: '0',
             right: '0',
             bottom: '0',
-            background: 'rgba(0,0,0,0.8)',
+            background: 'rgba(0,0,0,0.9)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'zoom-out',
-            zIndex: '9999'
+            zIndex: '9999',
+            opacity: '0',
+            transition: 'opacity 0.3s ease'
         });
         
+        overlay.className = 'image-overlay';
+        
         Object.assign(clonedImg.style, {
-            maxWidth: '90%',
-            maxHeight: '90%',
-            objectFit: 'contain'
+            maxWidth: '95%',
+            maxHeight: '95%',
+            objectFit: 'contain',
+            transform: 'scale(0.9)',
+            transition: 'transform 0.3s ease',
+            borderRadius: '4px'
         });
         
         overlay.appendChild(clonedImg);
         document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden'; // 防止背景滚动
         
-        const removeOverlay = () => overlay.remove();
-        overlay.addEventListener('click', removeOverlay);
+        setTimeout(() => {
+            overlay.style.opacity = '1';
+            clonedImg.style.transform = 'scale(1)';
+        }, 10);
         
-        // 添加键盘支持
+        const removeOverlay = () => {
+            overlay.style.opacity = '0';
+            clonedImg.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                if (overlay.parentNode) {
+                    overlay.parentNode.removeChild(overlay);
+                }
+                document.body.style.overflow = '';
+            }, 300);
+        };
+        
         const handleKeydown = (e) => {
             if (e.key === 'Escape') removeOverlay();
         };
+        
+        overlay.addEventListener('click', removeOverlay);
         document.addEventListener('keydown', handleKeydown);
         
-        // 清理事件监听器
+        // 使用一次性事件监听器
         overlay.addEventListener('click', function cleanup() {
             document.removeEventListener('keydown', handleKeydown);
             overlay.removeEventListener('click', cleanup);
-        });
+        }, { once: true });
     }
 });
