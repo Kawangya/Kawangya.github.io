@@ -7,7 +7,7 @@
 [哔哩哔哩](https://b23.tv/v4YKPMV) | [抖音](https://v.douyin.com/iLSLj2mq/) | [MC交流联机群](https://qun.qq.com/universal-share/share?ac=1&authKey=djlt%2BM%2FfbRUkFnAFUbgdNnt%2BF6g8tbJ42Anr%2BnfRVx0SvlMBZqmnouyfMJJqyxNd&busi_data=eyJncm91cENvZGUiOiI2MjQwNzU3NjIiLCJ0b2tlbiI6InIvb09EaVZXeUVEM0VwYkx0MndpcmRjZG13WG5VOXhtZDc3VWp2Skc0WitWWm5KWkJGaEhiQTFzRnNaWUx3VkwiLCJ1aW4iOiIzNTk2Mzc0NTk4In0%3D&data=yKTbOZCq3x7Ay5qnrDj8ERshAK-QnTGv5E9WQBbykECHDlit5Nbk7J6xvv6oNDbTUgQo76IGpsL-2skrgP6FjA&svctype=4&tempid=h5_group_info)
 
 **关注公众号【卡王的小窝】**
-![公众号](wxgzh.jpg)
+![公众号](images/wxgzh.png)
 </details>
 <details>
 <summary>🔥 免费领大额流量卡</summary>
@@ -43,7 +43,7 @@
 <summary>📲 扫码添加QQ</summary>
 
 [👉 点击快速添加](https://qm.qq.com/q/rqS3pr5QkM)  
-![联系方式](qqhy.png)
+![联系方式](images/qqhy.png)
 </details>
 </details>
 <details>
@@ -62,7 +62,7 @@
 <summary>📲 扫码添加QQ</summary>
 
 [👉 点击快速添加](https://qm.qq.com/q/rqS3pr5QkM)  
-![联系方式](qqhy.png)
+![联系方式](images/qqhy.png)
 </details>
 </details>
 <details>
