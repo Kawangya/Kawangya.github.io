@@ -319,23 +319,90 @@ a:hover img {
     color: #2c3e50;
 }
 
-.copy-alert {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 4px;
-    display: none;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
 .copy-success {
     background-color: #4CAF50;
 }
 
 .copy-error {
     background-color: #f44336;
+}
+
+.copy-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: #2c3e50;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e3e6f0;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideInRight 0.3s ease-out;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.copy-alert::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 4px 0 0 4px;
+}
+
+.copy-alert.copy-success {
+    background: rgba(76, 175, 80, 0.05);
+    border-color: rgba(76, 175, 80, 0.2);
+}
+
+.copy-alert.copy-success::before {
+    background: #4CAF50;
+}
+
+.copy-alert.copy-error {
+    background: rgba(244, 67, 54, 0.05);
+    border-color: rgba(244, 67, 54, 0.2);
+}
+
+.copy-alert.copy-error::before {
+    background: #f44336;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .copy-alert {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+        animation: slideInDown 0.3s ease-out;
+    }
+    
+    @keyframes slideInDown {
+        from {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 }
