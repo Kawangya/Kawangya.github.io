@@ -72,3 +72,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     }
 });
+
+document.querySelectorAll('img').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.onclick = function() {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.9);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: zoom-out;
+                z-index: 9999;
+            `;
+            const clonedImg = img.cloneNode();
+            clonedImg.style.maxWidth = '90%';
+            clonedImg.style.maxHeight = '90%';
+            
+            overlay.appendChild(clonedImg);
+            document.body.appendChild(overlay);
+            overlay.onclick = () => overlay.remove();
+        };
+    });
+    const alert = document.createElement('div');
+    alert.className = 'copy-alert';
+    document.body.appendChild(alert);
+    
+    document.addEventListener('click', async (e) => {
+        if (e.target.classList.contains('copy-btn')) {
+            const pre = e.target.parentElement;
+            const code = pre.querySelector('code')?.innerText || pre.innerText;
+            try {
+                await navigator.clipboard.writeText(code);
+                showCopyAlert(alert);
+            } catch (err) {
+                copyWithLegacyMethod(code, alert);
+            }
+        }
+    });
