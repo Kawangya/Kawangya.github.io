@@ -319,14 +319,6 @@ a:hover img {
     color: #2c3e50;
 }
 
-.copy-success {
-    background-color: #4CAF50;
-}
-
-.copy-error {
-    background-color: #f44336;
-}
-
 .copy-alert {
     position: fixed;
     top: 20px;
