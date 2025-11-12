@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="浏览器搜索语法">
+    <meta name="keywords" content="搜索语法">
+    <meta name="author" content="卡王吖">
+    <title>浏览器搜索语法</title>
+    <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <div id="encrypted-container">
+        <div id="cloud-content" style="display: block;">
+            <h1>浏览器搜索语法</h1>
+            <p>可以帮助你更精准地定位所需信息。以下是常见的搜索语法及其应用场景（以主流搜索引擎如<strong>Google</strong>、<strong>Bing</strong>、<strong>百度</strong>等为例）：</p>
+            <h4>1. 基础搜索语法</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>语法</th>
+                        <th>作用</th>
+                        <th>示例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>"关键词"</td>
+                        <td>精确匹配短语</td>
+                        <td>"人工智能发展史"</td>
+                    </tr>
+                    <tr>
+                        <td>-关键词</td>
+                        <td>排除某个关键词</td>
+                        <td>苹果 -手机（排除手机相关）</td>
+                    </tr>
+                    <tr>
+                        <td>OR或|</td>
+                        <td>搜索多个关键词中的任意一个</td>
+                        <td>Python教程 OR Java教程</td>
+                    </tr>
+                    <tr>
+                        <td>site:</td>
+                        <td>限定在特定网站内搜索</td>
+                        <td>搜索内容 site:域名</td>
+                    </tr>
+                    <tr>
+                        <td>filetype:</td>
+                        <td>搜索特定文件类型</td>
+                        <td>搜索内容 filetype:pdf</td>
+                    </tr>
+                    <tr>
+                        <td>intitle:</td>
+                        <td>关键词出现在标题中</td>
+                        <td>intitle:气候变化</td>
+                    </tr>
+                    <tr>
+                        <td>inurl:</td>
+                        <td>关键词出现在网址中</td>
+                        <td>inurl:blog</td>
+                    </tr>
+                    <tr>
+                        <td>related:</td>
+                        <td>查找类似网站</td>
+                        <td>related:域名</td>
+                    </tr>
+                    <tr>
+                        <td>define:</td>
+                        <td>查询定义</td>
+                        <td>define:元宇宙</td>
+                    </tr>
+                    <tr>
+                        <td>数字..数字</td>
+                        <td>搜索数值范围</td>
+                        <td>手机 价格 2000..5000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h4>2. 高级搜索技巧</h4>
+            <ul>
+                <li>通配符 *<br>代替未知词："如何*学习编程"（匹配“如何快速学习编程”等）。</li>
+                <li>括号组合逻辑<br>复杂逻辑组合：(Python OR Java) 入门教程 2023。</li>
+                <li>搜索特定社交媒体<br>#碳中和 from:twitter（Twitter 话题）或 @科技新闻 from:weibo（微博用户）。</li>
+                <li>时间范围筛选<br>在搜索结果页使用“工具”选择时间范围，或通过 before:2023 或 after:2022（部分引擎支持）。</li>
+                <li>搜索图片/视频<br>在搜索引擎的“图片”或“视频”分类中，使用关键词+格式：星空 4K 壁纸。</li>
+            </ul>
+            <h4>3. 搜索引擎差异</h4>
+            <ul>
+                <li>百度：支持 site:、filetype:，但部分语法（如 intitle:）效果有限。</li>
+                <li>Google：支持更复杂的语法（如 AROUND(n) 邻近搜索，如 AI AROUND(5) 伦理）。</li>
+                <li>Bing：支持 contains: 查找包含特定文件类型的链接（如 contains:pdf）。</li>
+            </ul>
+            <h4>4. 实际应用场景</h4>
+            <ul>
+                <li>找学术资料：<br>深度学习 综述 filetype:pdf site:edu.cn</li>
+                <li>排除广告：<br>耳机推荐 -广告 -推广</li>
+                <li>追踪信息来源：<br>"气候变化" site:nytimes.com after:2022</li>
+            </ul>
+            <h4>5. 注意事项</h4>
+            <ul>
+                <li>不同搜索引擎的语法可能略有差异，建议查看其官方帮助文档。</li>
+                <li>部分语法在移动端可能受限，建议使用桌面版。</li>
+                <li>搜索引擎会更新算法，部分语法可能失效。</li>
+            </ul>
+            <h3>合理利用搜索语法，能大幅提升信息检索效率！</h3>
+        </div>
+    </div><!-- 复制提示框 -->
+    <div class="copy-alert" id="copyAlert">复制成功!</div>
+    <script src="../js/script.js"></script>
+</body>
+
+</html>
