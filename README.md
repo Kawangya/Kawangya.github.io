@@ -14,7 +14,7 @@
 my-website/                   #网站根目录
 ├── index.html              #主页
 ├── pages/                  #子页面文件夹
-├── llqssyf.html            #子页面
+│   └── llqssyf.html       #子页面
 ├── css/                    #样式表文件夹
 │   └── style.css          #主样式文件
 ├── js/                     #JavaScript 文件夹
