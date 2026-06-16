@@ -297,6 +297,11 @@ a:hover img {
     position: relative;
 }
 
+.code-wrapper pre,
+.code-wrapper code {
+    pointer-events: none;
+}
+
 .copy-btn {
     background: white;
     border: 1px solid #c5cae9;
@@ -312,6 +317,8 @@ a:hover img {
     transition: all 0.2s;
     opacity: 1;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .copy-btn:hover {
