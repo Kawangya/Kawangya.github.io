@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleCopyClick() {
         if (this.disabled) return;
         
-        const preElement = this.closest('pre');
-        const codeElement = preElement?.querySelector('code');
+        const codeWrapper = this.closest('.code-wrapper');
+        const codeElement = codeWrapper?.querySelector('code');
         
         if (!codeElement) {
             showCopyError('未找到代码内容');
