@@ -2,22 +2,22 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="我的世界卡王的个人导航网">
-    <meta name="keywords" content="我的世界,卡王,Minecraft,MC,游戏,个人导航">
-    <meta name="author" content="卡王吖">
-    <title>卡王的个人导航</title>
-    <link rel="icon" href="../images/favicon.ico" type="../image/x-icon">
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
-    <link rel="stylesheet" href="../css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="我的世界卡王的个人导航网">
+  <meta name="keywords" content="我的世界,卡王,Minecraft,MC,游戏,个人导航">
+  <meta name="author" content="卡王吖">
+  <title>卡王的个人导航</title>
+  <link rel="icon" href="../images/favicon.ico" type="../image/x-icon">
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <div id="encrypted-container">
-    </div>
-    <script src="../js/script.js"></script>
-    <script src="../js/marked.umd.js"></script>
+  <div id="encrypted-container">
+  </div>
+  <script src="../js/script.js"></script>
+  <script src="../js/marked.umd.js"></script>
   <script>
     document.getElementById('encrypted-container').innerHTML =
       marked.parse(`# 卡王的个人导航
@@ -341,5 +341,10 @@
 `);
   </script>
 </body>
+
+<!-- 复制提示框 -->
+<div class="copy-alert" id="copyAlert">复制成功!</div>
+
+<script src="../js/script.js"></script>
 
 </html>
