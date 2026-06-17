@@ -408,6 +408,7 @@ a:hover img {
         opacity: 0;
         transform: translateX(100%) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateX(0) scale(1);
@@ -486,7 +487,7 @@ a:hover img {
         padding-right: 5.25rem;
         padding-top: 3rem;
     }
-    
+
     .copy-alert {
         top: 16px;
         right: 16px;
@@ -494,7 +495,7 @@ a:hover img {
         padding: 10px 14px;
         font-size: 13px;
     }
-    
+
     .code-wrapper .copy-btn {
         right: 8px;
         top: 8px;
@@ -527,11 +528,11 @@ a:hover img {
         padding: 12px 14px;
         font-size: 14px;
     }
-    
+
     pre {
         padding: 1rem;
     }
-    
+
     blockquote {
         padding: 0.8rem 1rem;
         margin: 1.2rem 0;
@@ -548,6 +549,7 @@ a:hover img {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 配置
     const CONFIG = {
         copyAlertDuration: {
@@ -6,10 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
             error: 3000
         }
     };
-    
+
     // 缓存DOM元素
     const copyAlert = document.getElementById('copyAlert');
-    
+
     try {
         // 复制按钮功能
         const copyButtons = document.querySelectorAll('.copy-btn');
@@ -29,10 +29,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleCopyClick() {
         if (this.disabled) return;
-        
+
         const codeWrapper = this.closest('.code-wrapper');
         const codeElement = codeWrapper?.querySelector('code');
-        
+
         if (!codeElement) {
             showCopyError('未找到代码内容');
             return;
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         this.disabled = true;
         const textToCopy = codeElement.textContent || codeElement.innerText;
-        
+
         copyToClipboard(textToCopy).finally(() => {
             setTimeout(() => {
                 this.disabled = false;
@@ -72,15 +72,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 opacity: "0",
                 pointerEvents: "none"
             });
-            
+
             document.body.appendChild(textArea);
             textArea.select();
             textArea.setSelectionRange(0, 99999); // 移动端支持
-            
+
             try {
                 const successful = document.execCommand('copy');
                 document.body.removeChild(textArea);
-                
+
                 if (successful) {
                     showCopySuccess();
                     resolve(true);
@@ -110,15 +110,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.warn('复制提示元素未找到');
             return;
         }
-        
+
         if (copyAlert._timeoutId) {
             clearTimeout(copyAlert._timeoutId);
         }
-        
+
         copyAlert.textContent = message;
         copyAlert.className = `copy-alert ${className}`;
         copyAlert.style.display = 'block';
-        
+
         copyAlert._timeoutId = setTimeout(() => {
             copyAlert.style.display = 'none';
             copyAlert._timeoutId = null;
@@ -127,12 +127,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function handleImageClick(e) {
         e.stopPropagation();
-        
+
         if (document.querySelector('.image-overlay')) return;
-        
+
         const overlay = document.createElement('div');
         const clonedImg = this.cloneNode();
-        
+
         Object.assign(overlay.style, {
             position: 'fixed',
             top: '0',
@@ -148,9 +148,9 @@ document.addEventListener('DOMContentLoaded', function() {
             opacity: '0',
             transition: 'opacity 0.3s ease'
         });
-        
+
         overlay.className = 'image-overlay';
-        
+
         Object.assign(clonedImg.style, {
             maxWidth: '95%',
             maxHeight: '95%',
@@ -159,16 +159,16 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: 'transform 0.3s ease',
             borderRadius: '4px'
         });
-        
+
         overlay.appendChild(clonedImg);
         document.body.appendChild(overlay);
         document.body.style.overflow = 'hidden'; // 防止背景滚动
-        
+
         setTimeout(() => {
             overlay.style.opacity = '1';
             clonedImg.style.transform = 'scale(1)';
         }, 10);
-        
+
         const removeOverlay = () => {
             overlay.style.opacity = '0';
             clonedImg.style.transform = 'scale(0.9)';
@@ -179,14 +179,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = '';
             }, 300);
         };
-        
+
         const handleKeydown = (e) => {
             if (e.key === 'Escape') removeOverlay();
         };
-        
+
         overlay.addEventListener('click', removeOverlay);
         document.addEventListener('keydown', handleKeydown);
-        
+
         // 使用一次性事件监听器
         overlay.addEventListener('click', function cleanup() {
             document.removeEventListener('keydown', handleKeydown);
