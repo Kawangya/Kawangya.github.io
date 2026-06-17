@@ -297,7 +297,11 @@ a:hover img {
     position: relative;
 }
 
-.code-wrapper pre,
+.code-wrapper pre {
+    pointer-events: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .code-wrapper code {
     pointer-events: none;
 }
@@ -319,6 +323,11 @@ a:hover img {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     z-index: 10;
     pointer-events: auto;
+}
+
+.code-wrapper .copy-btn {
+    top: 12px;
+    right: 12px;
 }
 
 .copy-btn:hover {
@@ -435,6 +444,11 @@ a:hover img {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
+
+    .code-wrapper pre {
+        padding-right: 5.25rem;
+        padding-top: 3rem;
+    }
     
     .copy-alert {
         top: 16px;
@@ -444,7 +458,7 @@ a:hover img {
         font-size: 13px;
     }
     
-    .copy-btn {
+    .code-wrapper .copy-btn {
         right: 8px;
         top: 8px;
         padding: 5px 10px;
