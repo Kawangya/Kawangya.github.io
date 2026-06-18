@@ -248,6 +248,18 @@ summary {
     border-radius: 6px;
     margin: -0.5rem;
     border: 1px solid rgba(197, 202, 233, 0.7);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+summary * {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+details > :not(summary) {
+    -webkit-user-select: text;
+    user-select: text;
 }
 
 summary::-webkit-details-marker {

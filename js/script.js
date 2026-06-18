@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', handleCopyClick);
         });
 
+        document.querySelectorAll('summary').forEach(summary => {
+            summary.addEventListener('mousedown', clearTextSelection);
+            summary.addEventListener('mouseup', clearTextSelection);
+            summary.addEventListener('selectstart', preventSelectionStart);
+        });
+
         // 图片放大功能：使用事件委托，兼容后续动态渲染的图片
         document.addEventListener('click', handleImageClick, true);
     } catch (error) {
@@ -46,6 +52,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.disabled = false;
             }, 1000);
         });
+    }
+
+    function clearTextSelection() {
+        const selection = window.getSelection();
+        if (selection && selection.rangeCount > 0) {
+            selection.removeAllRanges();
+        }
+    }
+
+    function preventSelectionStart(event) {
+        event.preventDefault();
     }
 
     async function copyToClipboard(text) {
