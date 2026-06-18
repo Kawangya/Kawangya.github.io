@@ -299,7 +299,7 @@ img {
     max-width: 100%;
     height: auto;
     display: block;
-    margin: 1.2rem auto;
+    margin: 1.2rem 0;
     border-radius: 10px;
     box-sizing: border-box;
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
