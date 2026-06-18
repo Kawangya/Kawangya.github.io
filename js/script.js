@@ -4,11 +4,15 @@ document.addEventListener('DOMContentLoaded', function () {
         copyAlertDuration: {
             success: 2000,
             error: 3000
+        },
+        imageOverlay: {
+            closeDelay: 300
         }
     };
 
     // 缓存DOM元素
     const copyAlert = document.getElementById('copyAlert');
+    let currentImageOverlay = null;
 
     try {
         // 复制按钮功能
@@ -17,12 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', handleCopyClick);
         });
 
-        // 图片放大功能
-        const images = document.querySelectorAll('img:not(.copy-btn *)');
-        images.forEach(img => {
-            img.style.cursor = 'zoom-in';
-            img.addEventListener('click', handleImageClick);
-        });
+        // 图片放大功能：使用事件委托，兼容后续动态渲染的图片
+        document.addEventListener('click', handleImageClick, true);
     } catch (error) {
         console.error('功能初始化失败:', error);
     }
@@ -126,71 +126,73 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleImageClick(e) {
-        e.stopPropagation();
+        const image = e.target.closest('img');
 
-        if (document.querySelector('.image-overlay')) return;
+        if (!image || image.closest('.image-overlay')) {
+            return;
+        }
+
+        if (currentImageOverlay) {
+            return;
+        }
+
+        e.preventDefault();
 
         const overlay = document.createElement('div');
-        const clonedImg = this.cloneNode();
-
-        Object.assign(overlay.style, {
-            position: 'fixed',
-            top: '0',
-            left: '0',
-            right: '0',
-            bottom: '0',
-            background: 'rgba(0,0,0,0.8)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'zoom-out',
-            zIndex: '9999',
-            opacity: '0',
-            transition: 'opacity 0.3s ease'
-        });
+        const clonedImg = image.cloneNode(true);
+        const originalBodyOverflow = document.body.style.overflow;
+        const originalBodyPaddingRight = document.body.style.paddingRight;
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
         overlay.className = 'image-overlay';
+        overlay.setAttribute('role', 'dialog');
+        overlay.setAttribute('aria-modal', 'true');
 
-        Object.assign(clonedImg.style, {
-            maxWidth: '95%',
-            maxHeight: '95%',
-            objectFit: 'contain',
-            transform: 'scale(0.9)',
-            transition: 'transform 0.3s ease',
-            borderRadius: '4px'
-        });
+        if (scrollbarWidth > 0) {
+            const currentPaddingRight = parseFloat(window.getComputedStyle(document.body).paddingRight) || 0;
+            document.body.style.paddingRight = `${currentPaddingRight + scrollbarWidth}px`;
+        }
+
+        document.body.style.overflow = 'hidden';
+
+        clonedImg.alt = image.alt || '';
+        clonedImg.loading = 'eager';
+        clonedImg.decoding = 'async';
+        clonedImg.style.cursor = 'zoom-out';
 
         overlay.appendChild(clonedImg);
         document.body.appendChild(overlay);
-        document.body.style.overflow = 'hidden'; // 防止背景滚动
+        currentImageOverlay = overlay;
 
-        setTimeout(() => {
-            overlay.style.opacity = '1';
-            clonedImg.style.transform = 'scale(1)';
-        }, 10);
+        requestAnimationFrame(() => {
+            overlay.classList.add('active');
+        });
 
-        const removeOverlay = () => {
-            overlay.style.opacity = '0';
-            clonedImg.style.transform = 'scale(0.9)';
-            setTimeout(() => {
+        const closeOverlay = () => {
+            if (!currentImageOverlay) {
+                return;
+            }
+
+            overlay.classList.remove('active');
+            window.setTimeout(() => {
                 if (overlay.parentNode) {
                     overlay.parentNode.removeChild(overlay);
                 }
-                document.body.style.overflow = '';
-            }, 300);
+
+                document.body.style.overflow = originalBodyOverflow;
+                document.body.style.paddingRight = originalBodyPaddingRight;
+                currentImageOverlay = null;
+                document.removeEventListener('keydown', handleKeydown);
+            }, CONFIG.imageOverlay.closeDelay);
         };
 
-        const handleKeydown = (e) => {
-            if (e.key === 'Escape') removeOverlay();
+        const handleKeydown = (keyEvent) => {
+            if (keyEvent.key === 'Escape') {
+                closeOverlay();
+            }
         };
 
-        overlay.addEventListener('click', removeOverlay);
+        overlay.addEventListener('click', closeOverlay);
         document.addEventListener('keydown', handleKeydown);
-
-        // 使用一次性事件监听器
-        overlay.addEventListener('click', function cleanup() {
-            document.removeEventListener('keydown', handleKeydown);
-            overlay.removeEventListener('click', cleanup);
-        }, { once: true });
     }
 });
