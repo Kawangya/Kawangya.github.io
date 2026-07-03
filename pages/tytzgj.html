@@ -125,6 +125,7 @@
           <label for="targetSelect">目标类型</label>
           <select id="targetSelect">
             <option value="steam_workshop" selected>Steam 创意工坊</option>
+            <option value="github_search">Github 项目搜索</option>
             <!-- ======== 以下为备用模板，需要时取消注释并添加到 configMap 中 ======== -->
             <!--
             <option value="steam_search">Steam 商店搜索</option>
@@ -167,6 +168,11 @@
           urlTemplate: 'https://steamcommunity.com/sharedfiles/filedetails/?id={value}',
           inputMode: 'numeric',
           placeholder: '输入作品数字 ID'
+        },
+        'github_search': {
+          urlTemplate: 'https://github.com/search?q={value}',
+          inputMode: 'raw',
+          placeholder: '输入项目名称或关键词'
         },
         // ======== 以下为备用模板（需要时取消注释） ========
         // 'steam_search': {
