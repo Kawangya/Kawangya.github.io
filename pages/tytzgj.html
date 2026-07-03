@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="卡王的通用跳转工具">
+  <meta name="author" content="卡王吖">
+  <title>卡王的通用跳转工具</title>
+  <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../images/apple-touch-icon.png">
+  <link rel="stylesheet" href="../css/aistyle.css">
+  <style>
+    body {
+      min-height: 100vh;
+      padding: 24px 14px 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background:
+        radial-gradient(circle at top, rgba(226, 233, 255, 0.9), transparent 42%),
+        linear-gradient(180deg, #f7f9fc 0%, #eef3f8 100%);
+    }
+
+    #encrypted-container {
+      width: 100%;
+      max-width: 560px;
+      padding: 30px;
+      border-radius: 18px;
+      border: 1px solid rgba(219, 227, 240, 0.9);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .tool-card {
+      display: grid;
+      gap: 20px;
+    }
+
+    .tool-card h1 {
+      font-size: 1.8rem;
+      margin: 0;
+      color: #0f172a;
+      letter-spacing: 0.01em;
+      border-bottom: 2px solid #bfd1ff;
+      padding-bottom: 0.55em;
+    }
+
+    .form-row {
+      display: grid;
+      gap: 20px;
+    }
+
+    .field-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .field-group label {
+      font-size: 0.96rem;
+      color: #334155;
+      font-weight: 600;
+    }
+
+    .field-group select,
+    .field-group input {
+      width: 100%;
+      border: 1px solid #d0d0d0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f8fafc;
+      color: #0f172a;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field-group select:focus,
+    .field-group input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      background: #ffffff;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 13px 16px;
+      border: none;
+      border-radius: 12px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.18s ease;
+    }
+
+    .action-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .note-box {
+      padding: 16px 18px;
+      background: #eff6ff;
+      border-left: 4px solid #2563eb;
+      color: #1e3a8a;
+      border-radius: 12px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 18px 12px 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="encrypted-container">
+    <div class="tool-card">
+      <h1>通用跳转工具</h1>
+
+      <div class="form-row">
+        <div class="field-group">
+          <label for="targetSelect">目标类型</label>
+          <select id="targetSelect">
+            <option value="steam_workshop" selected>Steam 创意工坊</option>
+            <!-- ======== 以下为备用模板，需要时取消注释并添加到 configMap 中 ======== -->
+            <!--
+            <option value="steam_search">Steam 商店搜索</option>
+            <option value="bilibili_search">B站搜索</option>
+            <option value="youtube_search">YouTube 搜索</option>
+            <option value="steam_app">Steam 应用页</option>
+            -->
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label for="idInput">输入内容</label>
+          <input type="text" id="idInput" placeholder="输入作品数字 ID" autofocus>
+        </div>
+      </div>
+
+      <button class="action-btn" id="jumpBtn">立即跳转</button>
+
+      <div class="note-box">
+        💡 选择目标类型后，输入 <strong>关键词或 ID</strong>，点击按钮即可打开。
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const inputEl = document.getElementById('idInput');
+      const jumpBtn = document.getElementById('jumpBtn');
+      const targetSelect = document.getElementById('targetSelect');
+
+      /**
+       * 配置映射 - 自由扩展
+       * inputMode: 'numeric'  -> 只提取数字（用于 ID 类）
+       *            'raw'      -> 保留原文本，并自动进行 URL 编码（用于搜索）
+       * urlTemplate 中的 {value} 会被替换为处理后的内容
+       * placeholder: 该选项对应的输入框占位文字
+       */
+      const configMap = {
+        'steam_workshop': {
+          urlTemplate: 'https://steamcommunity.com/sharedfiles/filedetails/?id={value}',
+          inputMode: 'numeric',
+          placeholder: '输入作品数字 ID'
+        },
+        // ======== 以下为备用模板（需要时取消注释） ========
+        // 'steam_search': {
+        //   urlTemplate: 'https://store.steampowered.com/search/?term={value}',
+        //   inputMode: 'raw',
+        //   placeholder: '输入游戏名称'
+        // },
+        // 'bilibili_search': {
+        //   urlTemplate: 'https://search.bilibili.com/all?keyword={value}',
+        //   inputMode: 'raw',
+        //   placeholder: '输入搜索关键词'
+        // },
+        // 'youtube_search': {
+        //   urlTemplate: 'https://www.youtube.com/results?search_query={value}',
+        //   inputMode: 'raw',
+        //   placeholder: '输入搜索内容'
+        // },
+        // 'steam_app': {
+        //   urlTemplate: 'https://store.steampowered.com/app/{value}',
+        //   inputMode: 'numeric',
+        //   placeholder: '输入应用数字 ID'
+        // }
+      };
+
+      function updatePlaceholder() {
+        const cfg = configMap[targetSelect.value];
+        inputEl.placeholder = cfg?.placeholder || '输入内容';
+      }
+
+      function jumpTo() {
+        const rawInput = inputEl.value.trim();
+        if (!rawInput) {
+          alert('请先输入内容！');
+          inputEl.focus();
+          return;
+        }
+
+        const cfg = configMap[targetSelect.value];
+        if (!cfg) {
+          alert('当前目标未配置，请联系管理员');
+          return;
+        }
+
+        let value = rawInput;
+        if (cfg.inputMode === 'numeric') {
+          const numericMatch = rawInput.match(/\d+/);
+          if (!numericMatch) {
+            alert('该目标需要输入数字 ID！');
+            inputEl.focus();
+            return;
+          }
+          value = numericMatch[0];
+        } else {
+          value = encodeURIComponent(rawInput);
+        }
+
+        window.open(cfg.urlTemplate.replace('{value}', value), '_blank');
+      }
+
+      jumpBtn.addEventListener('click', jumpTo);
+      inputEl.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          jumpTo();
+        }
+      });
+
+      targetSelect.addEventListener('change', function() {
+        updatePlaceholder();
+        inputEl.value = '';
+        inputEl.focus();
+      });
+
+      window.addEventListener('load', function() {
+        updatePlaceholder();
+        inputEl.focus();
+      });
+    })();
+  </script>
+</body>
+</html>
