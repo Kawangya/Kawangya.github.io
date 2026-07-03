@@ -11,7 +11,7 @@
 - 主样式文件：css/style.css
 - 子页面补充样式：css/aistyle.css
 - 通用脚本：js/script.js
-- Markdown 解析库(备)：js/marked.umd.js
+- Markdown 解析库：js/marked.umd.js
 - 图片资源：images/，包含网站图标和二维码图片
 - 其他内容：fullbackup/
 
@@ -29,7 +29,7 @@ Kawangya.github.io/
 │   └── aistyle.css         # 子页面额外样式文件
 ├── js/                     # JavaScript 目录
 │   ├── script.js           # 通用脚本
-│   └── marked.umd.js       # Markdown 解析库(备)
+│   └── marked.umd.js       # Markdown 解析库
 ├── images/                 # 图片资源目录
 │   ├── favicon.ico         # 网站图标
 │   ├── apple-touch-icon.png
